@@ -18,6 +18,11 @@ variable "nginx_eip_id" {
   type = string
 }
 
+variable "public_key_for_key_pair" {
+  type = string
+  description = "Let's you connect to lab_instance's by allowing your public key"
+}
+
 variable "worker_config" {
   type = any
   default = {
@@ -30,7 +35,6 @@ variable "worker_config" {
     user_data                 = "user_data/worker.sh"
     enable_storage_encryption = true
     private_ip                = null
-    key_pair_name             = null
   }
 }
 
@@ -46,7 +50,6 @@ variable "master_config" {
     user_data                 = "user_data/master.sh"
     enable_storage_encryption = true
     private_ip                = null
-    key_pair_name             = null
   }
 }
 
@@ -61,7 +64,6 @@ variable "nginx_config" {
     user_data                 = "user_data/nginx.sh"
     enable_storage_encryption = true
     private_ip                = null
-    key_pair_name             = null
   }
 }
 

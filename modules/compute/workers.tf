@@ -15,7 +15,7 @@ module "workers" {
   enable_storage_encryption = var.worker_config.enable_storage_encryption
 
   private_ip    = var.worker_config.private_ip
-  key_pair_name = var.worker_config.key_pair_name
+  key_pair_name = aws_key_pair.lab_key_pair.key_name
 
   user_data = base64encode(file("${path.root}/${var.worker_config.user_data}"))
 }

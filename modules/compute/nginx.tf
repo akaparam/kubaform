@@ -15,7 +15,7 @@ module "nginx" {
   enable_storage_encryption = var.nginx_config.enable_storage_encryption
 
   private_ip    = var.nginx_config.private_ip
-  key_pair_name = var.nginx_config.key_pair_name
+  key_pair_name = aws_key_pair.lab_key_pair.key_name
 
   user_data = base64encode(file("${path.root}/${var.nginx_config.user_data}"))
 }
@@ -23,4 +23,9 @@ module "nginx" {
 resource "aws_eip_association" "eip_assoc" {
   instance_id   = module.nginx.instance_id
   allocation_id = var.nginx_eip_id
+}
+
+resource "aws_key_pair" "lab_key_pair" {
+  key_name   = "kf-shared-kp"
+  public_key = var.public_key_for_key_pair
 }
