@@ -14,6 +14,10 @@ output "nginx_eip_id" {
   value = aws_eip.lab_nginx_ip.id
 }
 
+output "nginx_eip_public_ip" {
+  value = aws_eip.lab_nginx_ip.public_ip
+}
+
 output "nodes_sg_id" {
   value = aws_security_group.lab_nodes_sg.id
 }

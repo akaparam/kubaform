@@ -71,6 +71,15 @@ resource "aws_security_group_rule" "nginx_https" {
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
+resource "aws_security_group_rule" "nginx_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  security_group_id = aws_security_group.lab_nginx_sg.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "nginx_egress_all" {
   type              = "egress"
   from_port         = 0

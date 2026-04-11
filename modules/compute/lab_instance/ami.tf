@@ -5,7 +5,7 @@ data "aws_ami" "amazon_linux" {
   owners      = ["amazon"]
 
   filter {
-    name = "description"
+    name   = "description"
     values = ["Amazon Linux 2023*x86_64*"]
   }
 }

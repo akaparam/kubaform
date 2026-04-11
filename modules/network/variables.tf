@@ -1,7 +1,7 @@
 
 
 variable "names" {
-  type = any
+  type        = any
   description = "If you like things neat and clean, kindly add naming for the available components"
   default = {
     vpc                   = "kf-vpc"

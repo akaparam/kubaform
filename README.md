@@ -61,5 +61,5 @@ I would love to see more ideas implemented into this design.
 Currently let's keep it `terraform` only. I know there are customizations we can think out of terraform's custom logic. But I would rather not expand to have different runtimes just yet. I have a few other things planned:
 - Support for OpenTofu
 - Implement other backends (for now it only has S3 as a backend and state locking)
-- Setup CI/CD for drift detection and auto-apply
+- Setup CI/CD for drift detection and auto-apply (Use OIDC → assume IAM role - to authenticate terraform to AWS)
 - Support for [setting up lab internals using Terraform instead of User Data scripts](https://registry.terraform.io/modules/terraform-module/release/helm/latest).

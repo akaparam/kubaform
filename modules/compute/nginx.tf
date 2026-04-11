@@ -3,11 +3,12 @@
 module "nginx" {
   source = "./lab_instance"
 
-  instance_name = "kf-nginx"
-  ami_type      = var.nginx_config.ami_type
-  instance_type = var.nginx_config.instance_type
-  subnet_id     = var.public_subnet_ids[0]
-  security_group_ids = [ var.nginx_sg_id ]
+  instance_name               = "kf-nginx"
+  ami_type                    = var.nginx_config.ami_type
+  instance_type               = var.nginx_config.instance_type
+  subnet_id                   = var.public_subnet_ids[0]
+  associate_public_ip_address = true
+  security_group_ids          = [var.nginx_sg_id]
 
   storage_type              = var.nginx_config.storage_type
   storage_size              = var.nginx_config.storage_size
@@ -20,6 +21,6 @@ module "nginx" {
 }
 
 resource "aws_eip_association" "eip_assoc" {
-    instance_id = module.nginx.instance_id
-    allocation_id = var.nginx_eip_id
+  instance_id   = module.nginx.instance_id
+  allocation_id = var.nginx_eip_id
 }
