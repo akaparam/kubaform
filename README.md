@@ -23,6 +23,10 @@ The current configuration deploys the following architecture in AWS:
 ## Pre-Requisite
 1. AWS CLI with configured ACCESS_KEY_ID and SECRET_ACCESS_KEY
 2. Terraform (>= v1.14)
+3. (Optional) Namecheap API Key (If you want to map DNS records automatically with terraform whenever a new EIP is re-provisioned with resources)
+
+> If you don't have access to API Key. Just add 50$ to your funds and they will let you enable API access. Don't forget to redeem it back
+
 
 ## Provision
 
@@ -43,6 +47,7 @@ terraform destroy # In the root directory
 ```
 This will automatically remove all associations and de-provision all resources that were created with `apply`.
 
+> NOTE: There is 1 resource that is retained for convenience that is `nginx-eip`. It helps safe mapping of an allocated EIP to DNS servers without losing it over different provisioning sessions. **Make sure to manually delete that EIP from console**
 ## Docs
 
 Find them [here](./docs/)
