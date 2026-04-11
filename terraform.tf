@@ -14,4 +14,10 @@ terraform {
     region       = "ap-south-1"
     use_lockfile = true
   }
+
+  # backend "local" {}
+}
+
+provider "aws" {
+  region = var.region
 }
