@@ -34,7 +34,7 @@ variable "worker_config" {
     storage_size              = 10
     user_data                 = "user_data/worker.sh"
     enable_storage_encryption = true
-    private_ip                = null
+    private_ips               = ["10.1.2.12", "10.1.3.12", "10.1.2.13", "10.1.3.13"]
   }
 }
 
@@ -49,7 +49,7 @@ variable "master_config" {
     storage_size              = 10
     user_data                 = "user_data/master.sh"
     enable_storage_encryption = true
-    private_ip                = null
+    private_ips               = ["10.1.2.11", "10.1.3.11"]
   }
 }
 
@@ -63,7 +63,7 @@ variable "nginx_config" {
     storage_size              = 5
     user_data                 = "user_data/nginx.sh"
     enable_storage_encryption = true
-    private_ip                = null
+    private_ip                = "10.1.1.10"
   }
 }
 

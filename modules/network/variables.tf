@@ -22,7 +22,7 @@ variable "names" {
 variable "vpc_cidr_block" {
   type        = string
   description = "CIDR block for VPC"
-  default     = "10.0.0.0/16"
+  default     = "10.1.0.0/16"
 }
 
 # Subnets
@@ -30,7 +30,7 @@ variable "public_subnet_cidr_blocks" {
   type        = list(string)
   description = "Specify the public subnet configuration. Subnets are auto-distributed among available AZs to ensure HA. Defaults to 1."
   default = [
-    "10.0.1.0/24"
+    "10.1.1.0/24"
   ]
 
   validation {
@@ -44,8 +44,8 @@ variable "private_subnet_cidr_blocks" {
   description = "Specify the public subnet configuration. Subnets are auto-distributed among available AZs to ensure HA. [Default: \"10.0.2.0/24\", \"10.0.3.0/24\"]"
 
   default = [
-    "10.0.2.0/24",
-    "10.0.3.0/24",
+    "10.1.2.0/24",
+    "10.1.3.0/24",
   ]
   validation {
     condition     = length(var.private_subnet_cidr_blocks) > 0
