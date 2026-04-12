@@ -17,8 +17,10 @@ No need to setup your own rig, or learn EKS... Just simply work with pre-configu
 
 The current configuration deploys the following architecture in AWS:
 
-![KubaForm](./docs/kf-lab.svg)
+![KubaForm](./docs/kf-lab-graph.svg)
 
+If above graph is too intimidating for you? Here's a simplified drawio:
+![KubaForm: Minified](./docs/kf-lab.svg)
 
 ## Pre-Requisite
 1. AWS CLI with configured ACCESS_KEY_ID and SECRET_ACCESS_KEY
