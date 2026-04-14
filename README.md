@@ -17,17 +17,18 @@ No need to setup your own rig, or learn EKS... Just simply work with pre-configu
 
 The current configuration deploys the following architecture in AWS:
 
-![KubaForm](./docs/kf-lab-graph.svg)
-
-If above graph is too intimidating for you? Here's a simplified drawio:
 ![KubaForm: Minified](./docs/kf-lab.svg)
+
+Now to provision these components the following terraform resources were defined in each module (generated with `terraform graph` rendered by `eraser.io`):
+
+![KubaForm: Resource Map](./docs/kf-lab-graph.svg)
 
 ## Pre-Requisite
 1. AWS CLI with configured ACCESS_KEY_ID and SECRET_ACCESS_KEY
 2. Terraform (>= v1.14)
 3. (Optional) Namecheap API Key (If you want to map DNS records automatically with terraform whenever a new EIP is re-provisioned with resources)
 
-> If you don't have access to API Key. Just add 50$ to your funds and they will let you enable API access. Don't forget to redeem it back
+> If you don't have access to the API Key. Just add 50$ to your funds and they will let you enable API access. They tell you you can redeem it back but I didn't found an option in their portal to do so :)
 
 
 ## Provision
