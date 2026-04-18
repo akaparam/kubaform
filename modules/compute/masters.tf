@@ -15,7 +15,17 @@ module "masters" {
   enable_storage_encryption = var.master_config.enable_storage_encryption
 
   private_ip    = var.master_config.private_ips[count.index % var.master_config.number_of_instances]
-  key_pair_name = aws_key_pair.lab_key_pair.key_name
+  key_pair_name = aws_key_pair.lab_key_pair.key_name # Required for connecting through local notebook with nginx as a jumphost
 
-  user_data = base64encode(file("${path.root}/${var.master_config.user_data}"))
+  user_data = base64encode(
+    replace(
+      replace(
+        file("${path.root}/${var.master_config.user_data}"),
+        "__PRIMARY_MASTER_IP__",
+        local.primary_master_ip
+      ),
+      "__CONTROL_PLANE_ENDPOINT__",
+      local.control_plane_endpoint
+    )
+  )
 }

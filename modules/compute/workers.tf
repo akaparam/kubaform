@@ -15,7 +15,13 @@ module "workers" {
   enable_storage_encryption = var.worker_config.enable_storage_encryption
 
   private_ip    = var.worker_config.private_ips[count.index % var.worker_config.number_of_instances]
-  key_pair_name = aws_key_pair.lab_key_pair.key_name
+  key_pair_name = aws_key_pair.lab_key_pair.key_name # Required for connecting through local notebook with nginx as a jumphost
 
-  user_data = base64encode(file("${path.root}/${var.worker_config.user_data}"))
+  user_data = base64encode(
+    replace(
+      file("${path.root}/${var.worker_config.user_data}"),
+      "__PRIMARY_MASTER_IP__",
+      local.primary_master_ip
+    )
+  )
 }
