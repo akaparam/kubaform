@@ -20,6 +20,12 @@ variable "list_of_subdomains" {
   default = null
 }
 
+variable "kubeapi_public_hostname" {
+  type        = string
+  description = "Public hostname used by kubectl clients to reach Kubernetes API through NGINX (example: lab.param.sh)"
+  default     = null
+}
+
 variable "namecheap_user_name" {
   type = string
 }

@@ -19,8 +19,14 @@ variable "nginx_eip_id" {
 }
 
 variable "public_key_for_key_pair" {
-  type = string
+  type        = string
   description = "Let's you connect to lab_instance's by allowing your public key"
+}
+
+variable "kubeapi_public_hostname" {
+  type        = string
+  description = "Public DNS name used by clients to connect to Kubernetes API through NGINX"
+  default     = null
 }
 
 variable "worker_config" {

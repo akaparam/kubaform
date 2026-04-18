@@ -13,7 +13,7 @@ resource "namecheap_domain_records" "nginx_eip_domain_mapping" {
     hostname = var.list_of_subdomains[count.index]
     type     = "A"
     address  = module.network.nginx_eip_public_ip
-    ttl = 300
+    ttl      = 300
   }
 }
 
@@ -30,5 +30,5 @@ module "compute" {
   nginx_eip_id = module.network.nginx_eip_id
 
   public_key_for_key_pair = var.public_key_for_key_pair
+  kubeapi_public_hostname = var.kubeapi_public_hostname
 }
-

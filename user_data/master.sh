@@ -4,6 +4,7 @@ set -Eeuo pipefail
 
 PRIMARY_MASTER_IP="__PRIMARY_MASTER_IP__"
 CONTROL_PLANE_ENDPOINT="__CONTROL_PLANE_ENDPOINT__"
+APISERVER_CERT_EXTRA_SANS="__APISERVER_CERT_EXTRA_SANS__"
 POD_NETWORK_CIDR="192.168.0.0/16"
 CALICO_MANIFEST_URL="https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/calico.yaml"
 JOIN_DIR="/var/lib/kubaform"
@@ -187,13 +188,21 @@ wait_for_control_plane_join_script() {
 
 bootstrap_primary_master() {
   local local_ip="$1"
+  local kubeadm_init_args
 
   if [[ ! -f /etc/kubernetes/admin.conf ]]; then
-    kubeadm init \
-      --apiserver-advertise-address "${local_ip}" \
-      --control-plane-endpoint "${CONTROL_PLANE_ENDPOINT}" \
-      --pod-network-cidr "${POD_NETWORK_CIDR}" \
+    kubeadm_init_args=(
+      --apiserver-advertise-address "${local_ip}"
+      --control-plane-endpoint "${CONTROL_PLANE_ENDPOINT}"
+      --pod-network-cidr "${POD_NETWORK_CIDR}"
       --upload-certs
+    )
+
+    if [[ -n "${APISERVER_CERT_EXTRA_SANS}" ]]; then
+      kubeadm_init_args+=(--apiserver-cert-extra-sans "${APISERVER_CERT_EXTRA_SANS}")
+    fi
+
+    kubeadm init "${kubeadm_init_args[@]}"
   fi
 
   configure_kubectl_access

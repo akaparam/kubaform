@@ -20,12 +20,16 @@ module "masters" {
   user_data = base64encode(
     replace(
       replace(
-        file("${path.root}/${var.master_config.user_data}"),
-        "__PRIMARY_MASTER_IP__",
-        local.primary_master_ip
+        replace(
+          file("${path.root}/${var.master_config.user_data}"),
+          "__PRIMARY_MASTER_IP__",
+          local.primary_master_ip
+        ),
+        "__CONTROL_PLANE_ENDPOINT__",
+        local.control_plane_endpoint
       ),
-      "__CONTROL_PLANE_ENDPOINT__",
-      local.control_plane_endpoint
+      "__APISERVER_CERT_EXTRA_SANS__",
+      local.kubeapi_cert_sans_csv
     )
   )
 }
