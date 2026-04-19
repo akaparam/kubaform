@@ -1,0 +1,6 @@
+
+# Public key if you want to login and troubleshoot the lab nodes. Optional, but recommended.
+public_key_for_key_pair = "ssh-ed25519 AAA***+123 user@localhost"
+
+# This is for TLS certificate generation. It should match the one you will be using for accessing the Kubernetes API server.
+kubeapi_public_hostname = "lab.example.com"

@@ -1,0 +1,6 @@
+root_domain = "example.com"
+list_of_subdomains = ["subdomain1", "subdomain2"]
+domain_provider = "namecheap"
+namecheap_user_name = "YOUR_NAMECHEAP_USERNAME"
+namecheap_api_user = "YOUR_NAMECHEAP_API_USER"
+namecheap_api_key = "YOUR_NAMECHEAP_API_KEY"

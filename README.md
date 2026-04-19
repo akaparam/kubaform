@@ -26,7 +26,7 @@ Now to provision these components the following terraform resources were defined
 ## Pre-Requisite
 1. AWS CLI with configured ACCESS_KEY_ID and SECRET_ACCESS_KEY
 2. Terraform (>= v1.14)
-3. (Optional) Namecheap API Key (If you want to map DNS records automatically with terraform whenever a new EIP is re-provisioned with resources)
+3. (Optional) Namecheap / GoDaddy credentials if you want the separate DNS stack to manage domain records.
 
 > If you don't have access to the API Key. Just add 50$ to your funds and they will let you enable API access. They tell you you can redeem it back but I didn't found an option in their portal to do so :)
 
@@ -35,12 +35,22 @@ Now to provision these components the following terraform resources were defined
 
 Kubaform ships with it's own default based on industry best practices / ensuring HA / yet keeping the costs to a minimal.
 
-To get started, simply:
+To get started with the lab core, simply:
 
 ```bash
-terraform apply # In the root directory
+cd kubaform
+terraform init
+terraform apply
 ```
-Review the plan type `yes`. And this will provision the entire lab for you (ETA: 3 mins)
+Review the plan, type `yes`, and Terraform will provision the lab (ETA: 3 mins).
+
+If you want to manage DNS records in a separate stack, use the domain stack after the main lab stack is up:
+
+```bash
+cd kubaform/domain
+terraform init
+terraform apply -var-file=secrets.tfvars
+```
 
 ## Destroy
 
@@ -50,10 +60,12 @@ terraform destroy # In the root directory
 ```
 This will automatically remove all associations and de-provision all resources that were created with `apply`.
 
-> NOTE: There is 1 resource that is retained for convenience that is `nginx-eip`. It helps safe mapping of an allocated EIP to DNS servers without losing it over different provisioning sessions. **Make sure to manually delete that EIP from console**
+> Although, it is not needed to run the stacks in reverse order, but it is recommended that you do to ensure proper de-provisioning
+
 ## Docs
 
 Find them [here](./docs/)
+
 ## Configuration
 
 I get it, we all need customizations. I have tried my best to provide as much abstraction as possible while making sure to not overwhelm you guys.
