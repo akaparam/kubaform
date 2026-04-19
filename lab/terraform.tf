@@ -10,7 +10,7 @@ terraform {
 
   backend "s3" {
     bucket       = "kf-states"
-    key          = "terraform.tfstate"
+    key          = "lab.tfstate"
     region       = "ap-south-1"
     use_lockfile = true
   }

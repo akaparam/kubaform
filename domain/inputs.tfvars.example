@@ -4,3 +4,8 @@ domain_provider = "namecheap"
 namecheap_user_name = "YOUR_NAMECHEAP_USERNAME"
 namecheap_api_user = "YOUR_NAMECHEAP_API_USER"
 namecheap_api_key = "YOUR_NAMECHEAP_API_KEY"
+
+lab_state_bucket = "BUCKET_KEY" # Bucket key which contains the lab.tfstate
+lab_state_key = "lab.tfstate"
+lab_state_region = "ap-south-1"
+lab_state_use_lockfile = true
