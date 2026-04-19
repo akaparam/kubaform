@@ -23,28 +23,36 @@ Now to provision these components the following terraform resources were defined
 
 ![KubaForm: Resource Map](./docs/assets/kf-lab-graph.svg)
 
-## Pre-Requisite
+## Prerequisites
 1. AWS CLI with configured ACCESS_KEY_ID and SECRET_ACCESS_KEY
 2. Terraform (>= v1.14)
-3. (Optional) Namecheap / GoDaddy credentials if you want the separate DNS stack to manage domain records.
+3. (Optional) Namecheap credentials if you want the separate DNS stack to manage domain records.
 
 > If you don't have access to the API Key. Just add 50$ to your funds and they will let you enable API access. They tell you you can redeem it back but I didn't found an option in their portal to do so :)
 
+## Quick Start
 
-## Provision
+Kubaform ships with its own defaults based on industry best practices, ensuring HA while keeping costs minimal.
 
-Kubaform ships with it's own default based on industry best practices / ensuring HA / yet keeping the costs to a minimal.
+### Provision the Lab Core
 
-To get started with the lab core, simply:
+To get started with the lab core:
 
 ```bash
 cd kubaform
 terraform init
 terraform apply
 ```
+
 Review the plan, type `yes`, and Terraform will provision the lab (ETA: 3 mins).
 
-If you want to manage DNS records in a separate stack, use the domain stack after the main lab stack is up:
+### (Optional) Provision DNS Stack
+
+This stack manages DNS mappings for the `kubaform` lab as a separate Terraform workspace to keep Namecheap DNS automation isolated from the main lab stack. It reads `lab_ip` from the main stack state before applying and fails early if the main stack is not provisioned.
+
+1. Run the main stack first as above.
+
+2. Switch to the domain stack folder:
 
 ```bash
 cd kubaform/domain
@@ -52,27 +60,48 @@ terraform init
 terraform apply -var-file=secrets.tfvars
 ```
 
+The domain stack currently supports `namecheap`. Set `domain_provider` to "namecheap" and supply the appropriate credentials.
+
+Example variables file:
+
+```hcl
+root_domain = "example.com"
+list_of_subdomains = ["lab"]
+domain_provider = "namecheap"
+namecheap_user_name = "YOUR_NAMECHEAP_USERNAME"
+namecheap_api_user = "YOUR_NAMECHEAP_API_USER"
+namecheap_api_key = "YOUR_NAMECHEAP_API_KEY"
+```
+
+> The domain stack reads `lab_ip` directly from the main stack state using Terraform remote state. If the output is missing, the domain stack will fail and prompt you to run the main stack first.
+>
+> This automation is intended for Namecheap as it provides an official Terraform provider. If you're using another domain registrar like Cloudflare or GoDaddy, manually update the `lab_ip` with an A record to the subdomain of your choice. Be mindful to update the `kubeapi_public_hostname` in the lab stack's variables to match the subdomain you're mapping.
+
+For detailed setup and configuration, see the [documentation](./docs/).
+
 ## Destroy
 
 If you want to save costs, you can always de-provision resources after you're done playing around using:
+
 ```bash
 terraform destroy # In the root directory
 ```
+
 This will automatically remove all associations and de-provision all resources that were created with `apply`.
 
-> Although, it is not needed to run the stacks in reverse order, but it is recommended that you do to ensure proper de-provisioning
-
-## Docs
-
-Find them [here](./docs/)
+> Although it is not needed to run the stacks in reverse order, it is recommended to ensure proper de-provisioning.
 
 ## Configuration
 
-I get it, we all need customizations. I have tried my best to provide as much abstraction as possible while making sure to not overwhelm you guys.
+I get it, we all need customizations. I have tried my best to provide as much abstraction as possible while making sure not to overwhelm you.
 
-> Note: While you cannot customize the architecture (with the current design). You can surely tweak around with more or less instances / subnets and upsizing storage volumes and instance class
+> Note: While you cannot customize the architecture (with the current design), you can tweak more or fewer instances, subnets, storage volumes, and instance classes.
 
-To know more kindly, checkout the available configuration in [variables.tf](./variables.tf)
+To know more, check out the available configuration in [variables.tf](./variables.tf).
+
+## Documentation
+
+Find detailed documentation [here](./docs/), including bootstrap flow, cluster access, TLS setup, app deployment, SSH key pairs, backend configuration, and design decisions.
 
 ## Contribution
 
