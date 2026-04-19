@@ -15,6 +15,8 @@ Done with your learning for the day? Want to save AWS costs? `terraform destroy`
 
 No need to setup your own rig, or learn EKS... Just simply work with pre-configured tools (available as part of [User Data Scripts](./user_data/)) you need to explore the world of kubernetes.
 
+> It also helps you **SAVE MONEY**. See a detailed comparison of how Kubaform helps you save operational costs over standard EKS clusters in [Pricing Estimates](./docs/pricing-estimates.md).
+
 The current configuration deploys the following architecture in AWS:
 
 ![KubaForm: Minified](./docs/assets/kf-lab.svg)
@@ -102,7 +104,7 @@ I get it, we all need customizations. I have tried my best to provide as much ab
 
 > Note: While you cannot customize the architecture (with the current design), you can tweak more or fewer instances, subnets, storage volumes, and instance classes.
 
-To know more, check out the available configuration in [variables.tf](./variables.tf).
+To know more, check out the available configuration in [variables.tf](./lab/variables.tf).
 
 ## Documentation
 
