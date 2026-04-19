@@ -17,11 +17,11 @@ No need to setup your own rig, or learn EKS... Just simply work with pre-configu
 
 The current configuration deploys the following architecture in AWS:
 
-![KubaForm: Minified](./docs/kf-lab.svg)
+![KubaForm: Minified](./docs/assets/kf-lab.svg)
 
 Now to provision these components the following terraform resources were defined in each module (generated with `terraform graph` rendered by `eraser.io`):
 
-![KubaForm: Resource Map](./docs/kf-lab-graph.svg)
+![KubaForm: Resource Map](./docs/assets/kf-lab-graph.svg)
 
 ## Pre-Requisite
 1. AWS CLI with configured ACCESS_KEY_ID and SECRET_ACCESS_KEY
