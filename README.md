@@ -36,12 +36,13 @@ Kubaform ships with its own defaults based on industry best practices, ensuring 
 
 ### Provision the Lab Core
 
+First, configure your inputs by copying and editing `lab/inputs.tfvars.example` to `lab/inputs.tfvars`.
+
 To get started with the lab core:
 
 ```bash
-cd kubaform
-terraform init
-terraform apply
+make lab-init
+make lab-apply
 ```
 
 Review the plan, type `yes`, and Terraform will provision the lab (ETA: 3 mins).
@@ -50,14 +51,15 @@ Review the plan, type `yes`, and Terraform will provision the lab (ETA: 3 mins).
 
 This stack manages DNS mappings for the `kubaform` lab as a separate Terraform workspace to keep Namecheap DNS automation isolated from the main lab stack. It reads `lab_ip` from the main stack state before applying and fails early if the main stack is not provisioned.
 
+Configure your domain inputs by copying and editing `domain/inputs.tfvars.example` to `domain/inputs.tfvars`.
+
 1. Run the main stack first as above.
 
-2. Switch to the domain stack folder:
+2. Provision the domain stack:
 
 ```bash
-cd kubaform/domain
-terraform init
-terraform apply -var-file=secrets.tfvars
+make domain-init
+make domain-apply
 ```
 
 The domain stack currently supports `namecheap`. Set `domain_provider` to "namecheap" and supply the appropriate credentials.
@@ -81,15 +83,18 @@ For detailed setup and configuration, see the [documentation](./docs/).
 
 ## Destroy
 
-If you want to save costs, you can always de-provision resources after you're done playing around using:
+If you want to save costs, you can always de-provision resources after you're done playing around.
+
+To destroy the stacks:
 
 ```bash
-terraform destroy # In the root directory
+make domain-destroy  # Destroy domain stack first (if provisioned)
+make lab-destroy     # Then destroy lab stack
 ```
 
 This will automatically remove all associations and de-provision all resources that were created with `apply`.
 
-> Although it is not needed to run the stacks in reverse order, it is recommended to ensure proper de-provisioning.
+> It is recommended to destroy the stacks in reverse order (domain first, then lab) to ensure proper de-provisioning.
 
 ## Configuration
 
@@ -101,7 +106,7 @@ To know more, check out the available configuration in [variables.tf](./variable
 
 ## Documentation
 
-Find detailed documentation [here](./docs/), including bootstrap flow, cluster access, TLS setup, app deployment, SSH key pairs, backend configuration, and design decisions.
+Find detailed documentation [here](./docs/), including bootstrap flow, cluster access, TLS setup, app deployment, SSH key pairs and backend configuration.
 
 ## Contribution
 
