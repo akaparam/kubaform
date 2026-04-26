@@ -5,9 +5,9 @@ Problem Statement:
 - EKS is overwhelming
 - EKS PRICING IS OVERWHELMING
 
-- To manage simple kubernetes workflow we just need a small cluster to be created in which our nodes could run!
+To manage simple kubernetes workflow we just need with 3-4 nodes to be created in which our cluster could run!
 
-Presenting a templatized kubernetes deployment which auto-configures EC2 instances as master and worker nodes where kubeadm and other tools are automatically installed...
+Presenting... a templatized kubernetes deployment which auto-configures EC2 instances as master and worker nodes where kubeadm and other tools are automatically installed!!
 
 Need to run a quick workflow? Just `terraform apply` and you're ready to go.
 
